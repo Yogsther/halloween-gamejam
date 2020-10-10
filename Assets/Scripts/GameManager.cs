@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,10 @@ public class GameManager : MonoBehaviour {
     public TextAsset rawWords;
     public string[] words;
 
+    public Transform canvas;
+
+    public bool gameOver = true;
+
     public float time = 120;
     public Text timer;
 
@@ -19,13 +24,59 @@ public class GameManager : MonoBehaviour {
     public GameObject arrowButtons;
 
     public string password;
-    public char[] passwordHint = new char[8];
+    public char[] passwordHint;
     public Text passwordHintObject;
 
+    public Transform gameOverScreen;
+
     void Start() {
-        backButton.gameObject.SetActive(false);
+        gameOver = true;
         words = rawWords.text.Split(' ');
+        StartGame();
+    }
+
+    public void StartGame() {
+        if (!gameOver) return;
         password = words[Random.Range(0, words.Length - 1)];
+        time = 120;
+        passwordHint = new char[8];
+        backButton.gameObject.SetActive(false);
+        gameOver = false;
+        gameOverScreen.gameObject.SetActive(false);
+    }
+
+    public void EndGame() {
+        if (gameOver) return;
+        CameraMovement cm = Camera.main.GetComponent<CameraMovement>();
+        cm.direction = 0;
+        cm.desiredDirection = 0;
+
+        Back();
+        gameOver = true;
+        gameOverScreen.gameObject.SetActive(true);
+
+        Text topText = gameOverScreen.Find("TopText").GetComponent<Text>();
+        Text bottomText = gameOverScreen.Find("BottomText").GetComponent<Text>();
+
+        bool won = time > 0;
+
+        Color color = won ? Color.green : Color.red;
+
+        string extraText = "";
+        int guessedLetters = 0;
+        for (int i = 0; i < passwordHint.Length; i++) {
+            if (passwordHint[i] == (char)0) guessedLetters++;
+        }
+
+        if (guessedLetters > 0) {
+            extraText = "\n(and you guessed " + guessedLetters + " letters)";
+        }
+
+        topText.text = won ? "You won!" : "You lost!";
+        topText.color = color;
+        bottomText.text = won ? "... with " + GetTimeLeft() + " seconds left" : "Good luck next time :(";
+        bottomText.text += "\nPress [ENTER] to play again." + extraText;
+        bottomText.color = color;
     }
 
     public void Back() {
@@ -54,18 +105,15 @@ public class GameManager : MonoBehaviour {
             if (passwordHint[i] == (char)0) missingLetters.Add(i);
         }
 
-        Debug.Log(string.Join(", ", missingLetters));
 
         if (missingLetters.Count > 0) {
             int index = Random.Range(0, missingLetters.Count - 1);
-            Debug.Log("Random: " + index);
             passwordHint[missingLetters[index]] = password[missingLetters[index]];
         }
 
-
-
         DrawHint();
     }
+
 
     public void GivePenalty(float amount) {
         time -= amount;
@@ -82,16 +130,27 @@ public class GameManager : MonoBehaviour {
         SetTimerColor(Color.white);
     }
 
+    string GetTimeLeft() {
+        return string.Format("{0,6:##0.00}", time);
+    }
+
     void Update() {
 
-        time -= Time.deltaTime;
-        timer.text = string.Format("{0,6:##0.00}", time);
+        if (!gameOver) {
+            time -= Time.deltaTime;
+            timer.text = GetTimeLeft();
+
+            if (time <= 0) {
+                EndGame();
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.Return)) {
+            if (gameOver) StartGame();
             GiveHintLetter();
         }
 
-        if (Input.GetMouseButton(0)) {
+        if (Input.GetMouseButton(0) && !gameOver) {
 
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

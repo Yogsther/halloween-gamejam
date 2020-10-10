@@ -23,11 +23,10 @@ public class SimonSays : Puzzle {
             numbers[i] = Random.Range(0, 8);
         }
 
-        Transform canvas = GameObject.Find("2DCanvas").transform;
         GameObject button = gm.gameObject.GetComponent<AssetPack>().SimonSaysButton;
         for (int i = 0; i < 9; i++) {
             int index = i;
-            buttons[i] = (Instantiate(button, canvas));
+            buttons[i] = (Instantiate(button, gm.canvas));
             buttons[i].GetComponent<Button>().onClick.AddListener(() => { Click(index); });
             buttons[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-100 + ((i % 3) * 100), -110 + (Mathf.Floor(i / 3) * 100));
         }

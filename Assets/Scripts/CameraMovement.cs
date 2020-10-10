@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour {
 
-    float direction = 0;
-    float desiredDirection = 0;
+    public float direction = 0;
+    public float desiredDirection = 0;
     float vel;
 
     // Start is called before the first frame update
