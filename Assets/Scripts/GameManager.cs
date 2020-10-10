@@ -64,12 +64,14 @@ public class GameManager : MonoBehaviour {
 
         string extraText = "";
         int guessedLetters = 0;
-        for (int i = 0; i < passwordHint.Length; i++) {
-            if (passwordHint[i] == (char)0) guessedLetters++;
-        }
+        if (won) {
+            for (int i = 0; i < passwordHint.Length; i++) {
+                if (passwordHint[i] == (char)0) guessedLetters++;
+            }
 
-        if (guessedLetters > 0) {
-            extraText = "\n(and you guessed " + guessedLetters + " letters)";
+            if (guessedLetters > 0) {
+                extraText = "\n(and you guessed " + guessedLetters + " letters)";
+            }
         }
 
         topText.text = won ? "You won!" : "You lost!";

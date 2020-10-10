@@ -70,7 +70,6 @@ public class WordGame : Puzzle {
     }
 
     void Click(int index) {
-        Debug.Log(index);
         GameObject button = buttons[index];
 
         bool correctClick = false;
