@@ -18,7 +18,7 @@ public class Puzzle : MonoBehaviour {
 
     public void Completed() {
         StartCoroutine(CompleteDelay());
-        gm.Back();
+
     }
 
     public void Failed() {
@@ -28,12 +28,14 @@ public class Puzzle : MonoBehaviour {
 
     IEnumerator CompleteDelay() {
         yield return new WaitForSeconds(.5f);
+        gm.Back();
     }
 
     IEnumerator WaitForRestart() {
         yield return new WaitForSeconds(2);
         Unload();
         Setup();
+
     }
 
 
