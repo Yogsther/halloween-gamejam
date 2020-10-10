@@ -85,7 +85,7 @@ public class WordGame : Puzzle {
             if (button.GetComponent<Image>().color != Color.green) {
                 button.GetComponent<Image>().color = Color.green;
                 progress++;
-                if (progress == 7) {
+                if (progress == 8) {
                     Completed();
                 }
             }
