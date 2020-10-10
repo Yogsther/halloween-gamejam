@@ -19,10 +19,15 @@ public class WordGame : Puzzle {
     AssetPack ap;
     GameObject board;
 
+    int progress;
+
     string word;
+    int[] keys = new int[8];
 
     public override void Setup() {
         base.Setup();
+
+        progress = 0;
 
         word = gm.words[Random.Range(0, gm.words.Length - 1)];
 
@@ -46,20 +51,56 @@ public class WordGame : Puzzle {
         int y = horizontalWord ? start : 0;
 
         for (int i = 0; i < 8; i++) {
-            Debug.Log("X: " + x + " , Y: " + y);
-            matrix[GetIndex(x, y)] = word[i];
+            int index = GetIndex(x, y);
+            keys[i] = index;
+            matrix[index] = word[i];
             if (horizontalWord) x++;
             else y++;
         }
 
-
-
-
         for (int i = 0; i < 64; i++) {
             if (matrix[i] == (char)0) matrix[i] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray()[Random.Range(0, 25)];
             buttons[i].transform.Find("Text").GetComponent<Text>().text = matrix[i].ToString();
+            int index = i;
+            buttons[i].GetComponent<Button>().onClick.AddListener(() => {
+                Click(index);
+            });
         }
 
+    }
+
+    void Click(int index) {
+        Debug.Log(index);
+        GameObject button = buttons[index];
+
+        bool correctClick = false;
+        for (int i = 0; i < keys.Length; i++) {
+            if (keys[i] == index) {
+                correctClick = true;
+                break;
+            }
+        }
+
+        if (correctClick) {
+            if (button.GetComponent<Image>().color != Color.green) {
+                button.GetComponent<Image>().color = Color.green;
+                progress++;
+                if (progress == 7) {
+                    Completed();
+                }
+            }
+        } else {
+            button.GetComponent<Image>().color = Color.red;
+            gm.GivePenalty(10);
+            StartCoroutine(Clear());
+        }
+    }
+
+    IEnumerator Clear() {
+        yield return new WaitForSeconds(.5f);
+        for (int i = 0; i < 64; i++) {
+            buttons[i].GetComponent<Image>().color = Color.white;
+        }
     }
 
     public int GetIndex(int x, int y) {

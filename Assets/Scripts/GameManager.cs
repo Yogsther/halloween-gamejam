@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,17 +30,18 @@ public class GameManager : MonoBehaviour {
     public Transform gameOverScreen;
 
     void Start() {
+        gameOver = true;
         words = rawWords.text.Split(' ');
         StartGame();
     }
 
-    void StartGame() {
+    public void StartGame() {
         if (!gameOver) return;
+        password = words[Random.Range(0, words.Length - 1)];
         time = 120;
         passwordHint = new char[8];
         backButton.gameObject.SetActive(false);
         gameOver = false;
-        password = words[Random.Range(0, words.Length - 1)];
         gameOverScreen.gameObject.SetActive(false);
     }
 
@@ -93,6 +95,7 @@ public class GameManager : MonoBehaviour {
             if (passwordHint[i] == (char)0) missingLetters.Add(i);
         }
 
+        Debug.Log(string.Join(", ", missingLetters));
 
         if (missingLetters.Count > 0) {
             int index = Random.Range(0, missingLetters.Count - 1);
@@ -135,6 +138,7 @@ public class GameManager : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Return)) {
             if (gameOver) StartGame();
+            GiveHintLetter();
         }
 
         if (Input.GetMouseButton(0) && !gameOver) {
