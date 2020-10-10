@@ -1,13 +1,14 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Puzzle : MonoBehaviour {
 
     public GameManager gm;
+    public bool failed;
 
 
     public virtual void Setup() {
+        failed = false;
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
@@ -15,12 +16,24 @@ public class Puzzle : MonoBehaviour {
 
     }
 
-    void Completed() {
-
+    public void Completed() {
+        StartCoroutine(CompleteDelay());
+        gm.Back();
     }
 
-    void Failed() {
+    public void Failed() {
+        failed = true;
+        StartCoroutine(WaitForRestart());
+    }
 
+    IEnumerator CompleteDelay() {
+        yield return new WaitForSeconds(.5f);
+    }
+
+    IEnumerator WaitForRestart() {
+        yield return new WaitForSeconds(2);
+        Unload();
+        Setup();
     }
 
 

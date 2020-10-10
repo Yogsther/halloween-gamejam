@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour {
             if (Physics.Raycast(ray, out hit, 1000000f, LayerMask.GetMask("Clickable"))) {
                 if (!inPuzzle) {
                     inPuzzle = true;
-                    Debug.Log("Changed puzzle");
 
                     puzzleRunner.AddComponent(hit.transform.gameObject.GetComponent<Puzzle>().GetType());
                     activePuzzle = puzzleRunner.GetComponent<Puzzle>();
