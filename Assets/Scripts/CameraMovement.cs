@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour {
 
-    int direction = 0;
+    float direction = 0;
+    float desiredDirection = 0;
+    float vel;
 
     // Start is called before the first frame update
     void Start() {
@@ -12,15 +15,17 @@ public class CameraMovement : MonoBehaviour {
     }
 
     public void ChangeCameraLook(int way) {
-        direction += way * 90;
+        desiredDirection += way * 90;
     }
 
 
 
     // Update is called once per frame
     void Update() {
+
+        direction = Mathf.SmoothDamp(direction, desiredDirection, ref vel, .1f);
         float mouseX = (Input.mousePosition.x / Screen.width) / 50;
         float mouseY = (Input.mousePosition.y / Screen.height) / 50;
-        transform.localRotation = Quaternion.Euler(new Vector4(-1f * (mouseY * 180f), mouseX * 360f * direction, transform.localRotation.z));
+        transform.localRotation = Quaternion.Euler(new Vector4(-1f * (mouseY * 180f), mouseX * 360f + direction, transform.localRotation.z));
     }
 }

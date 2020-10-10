@@ -23,11 +23,15 @@ public class Puzzle : MonoBehaviour {
 
     public void Failed() {
         failed = true;
+        gm.GivePenalty(10);
         StartCoroutine(WaitForRestart());
     }
 
     IEnumerator CompleteDelay() {
-        yield return new WaitForSeconds(.5f);
+        for (int i = 0; i < 2; i++) {
+            gm.GiveHintLetter();
+            yield return new WaitForSeconds(.5f);
+        }
         gm.Back();
     }
 

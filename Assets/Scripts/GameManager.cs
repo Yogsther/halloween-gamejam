@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,9 @@ public class GameManager : MonoBehaviour {
     public GameObject puzzleRunner;
     public TextAsset rawWords;
     public string[] words;
+
+    public float time = 120;
+    public Text timer;
 
     public Button backButton;
 
@@ -61,7 +65,25 @@ public class GameManager : MonoBehaviour {
         DrawHint();
     }
 
+    public void GivePenalty(float amount) {
+        time -= amount;
+        SetTimerColor(Color.red);
+        StartCoroutine(ResetTimeColor());
+    }
+
+    void SetTimerColor(Color color) {
+        timer.color = color;
+    }
+
+    IEnumerator ResetTimeColor() {
+        yield return new WaitForSeconds(.4f);
+        SetTimerColor(Color.white);
+    }
+
     void Update() {
+
+        time -= Time.deltaTime;
+        timer.text = string.Format("{0,6:##0.00}", time);
 
         if (Input.GetKeyDown(KeyCode.Return)) {
             GiveHintLetter();
