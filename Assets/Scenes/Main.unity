@@ -2282,6 +2282,7 @@ MonoBehaviour:
   SimonSaysButton: {fileID: 4808795125461253038, guid: f8ff002abdfa93a479658ea48bca717c, type: 3}
   jumpGamePlayer: {fileID: 4871403436834651993, guid: 3b427368e995f50438da8b1b5730a232, type: 3}
   jumpGameObstacle: {fileID: 8978417018793543989, guid: a15bf0499d1e7154c82ed20e70723fe5, type: 3}
+  jumpGameFloor: {fileID: 6051151169331995732, guid: 28aea1b8bbda0884a800af8ee37741bb, type: 3}
 --- !u!1 &1772101574
 GameObject:
   m_ObjectHideFlags: 0
