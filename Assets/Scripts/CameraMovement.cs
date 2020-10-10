@@ -7,6 +7,7 @@ public class CameraMovement : MonoBehaviour {
 
     public float direction = 0;
     public float desiredDirection = 0;
+    public float offset = 20;
     float vel;
 
     // Start is called before the first frame update
@@ -26,6 +27,6 @@ public class CameraMovement : MonoBehaviour {
         direction = Mathf.SmoothDamp(direction, desiredDirection, ref vel, .1f);
         float mouseX = (Input.mousePosition.x / Screen.width) / 50;
         float mouseY = (Input.mousePosition.y / Screen.height) / 50;
-        transform.localRotation = Quaternion.Euler(new Vector4(-1f * (mouseY * 180f), mouseX * 360f + direction, transform.localRotation.z));
+        transform.localRotation = Quaternion.Euler(new Vector4(-1f * (mouseY * 180f) + offset, mouseX * 360f + direction, transform.localRotation.z));
     }
 }

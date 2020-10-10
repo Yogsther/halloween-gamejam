@@ -7,6 +7,8 @@ public class Puzzle : MonoBehaviour {
     [HideInInspector] public GameManager gm;
     [HideInInspector] public bool failed;
 
+    public bool hard = false;
+
     public virtual void Setup() {
         failed = false;
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();

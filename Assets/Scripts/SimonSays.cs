@@ -7,13 +7,18 @@ using UnityEngine.UI;
 public class SimonSays : Puzzle {
 
     List<GameObject> buttons = new List<GameObject>();
-    int[] numbers = new int[5];
+
+
+    int[] numbers;
     int stage;
     int at;
     bool playingSequence;
 
+
     public override void Setup() {
         base.Setup();
+
+        numbers = new int[hard ? 10 : 5];
         stage = 0;
         playingSequence = false;
         at = 0;
@@ -41,7 +46,7 @@ public class SimonSays : Puzzle {
 
             LightUp(key, Color.green);
 
-            if (at == 4) {
+            if (at == numbers.Length - 1) {
                 LightComplete();
                 Completed();
             } else if (at == stage - 1) {
@@ -93,9 +98,9 @@ public class SimonSays : Puzzle {
 
         for (int i = 0; i < stage; i++) {
             DimAll();
-            yield return new WaitForSeconds(.25f);
+            yield return new WaitForSeconds(hard ? .1f : .25f);
             LightUp(numbers[i], Color.blue);
-            yield return new WaitForSeconds(.7f);
+            yield return new WaitForSeconds(hard ? .4f : .7f);
             DimAll();
         }
 

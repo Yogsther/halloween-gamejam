@@ -163,6 +163,7 @@ public class GameManager : MonoBehaviour {
                     arrowButtons.SetActive(false);
                     puzzleRunner.AddComponent(hit.transform.gameObject.GetComponent<Puzzle>().GetType());
                     activePuzzle = puzzleRunner.GetComponent<Puzzle>();
+                    activePuzzle.hard = hit.transform.gameObject.GetComponent<Puzzle>().hard;
                     activePuzzle.Setup();
                 }
             }
