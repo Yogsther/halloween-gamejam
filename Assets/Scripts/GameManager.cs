@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour {
     public TextAsset rawWords;
     public string[] words;
 
+    public Transform canvas;
+
     public float time = 120;
     public Text timer;
 

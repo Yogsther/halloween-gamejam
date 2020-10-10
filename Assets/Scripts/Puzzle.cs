@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class Puzzle : MonoBehaviour {
 
-    public GameManager gm;
-    public bool failed;
 
+    [HideInInspector] public GameManager gm;
+    [HideInInspector] public bool failed;
 
     public virtual void Setup() {
         failed = false;
