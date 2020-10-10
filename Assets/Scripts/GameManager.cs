@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
     public Text timer;
 
     public Button backButton;
+    public GameObject arrowButtons;
 
     public string password;
     public char[] passwordHint = new char[8];
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour {
     public void Back() {
         if (!inPuzzle) return;
         backButton.gameObject.SetActive(false);
+        arrowButtons.SetActive(true);
 
         activePuzzle.Unload();
         Destroy(activePuzzle);
@@ -97,6 +99,7 @@ public class GameManager : MonoBehaviour {
                 if (!inPuzzle) {
                     inPuzzle = true;
                     backButton.gameObject.SetActive(true);
+                    arrowButtons.SetActive(false);
                     puzzleRunner.AddComponent(hit.transform.gameObject.GetComponent<Puzzle>().GetType());
                     activePuzzle = puzzleRunner.GetComponent<Puzzle>();
                     activePuzzle.Setup();
