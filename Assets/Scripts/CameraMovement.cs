@@ -10,6 +10,8 @@ public class CameraMovement : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        float mouseX = (Input.mousePosition.x / Screen.width) / 50;
+        float mouseY = (Input.mousePosition.y / Screen.height) / 50;
+        transform.localRotation = Quaternion.Euler(new Vector4(-1f * (mouseY * 180f), mouseX * 360f, transform.localRotation.z));
     }
 }
