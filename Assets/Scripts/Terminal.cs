@@ -22,7 +22,7 @@ public class Terminal : Puzzle {
         input.text = value.ToUpper();
         if (input.text.Length == 8) {
             if (input.text == gm.password) {
-                Debug.Log("YOU WON");
+                gm.EndGame();
             } else {
                 gm.GivePenalty(10);
             }

@@ -95,7 +95,6 @@ public class GameManager : MonoBehaviour {
             if (passwordHint[i] == (char)0) missingLetters.Add(i);
         }
 
-        Debug.Log(string.Join(", ", missingLetters));
 
         if (missingLetters.Count > 0) {
             int index = Random.Range(0, missingLetters.Count - 1);

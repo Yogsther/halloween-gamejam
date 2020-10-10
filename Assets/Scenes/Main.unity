@@ -2647,6 +2647,7 @@ MonoBehaviour:
   jumpGameObstacle: {fileID: 8978417018793543989, guid: a15bf0499d1e7154c82ed20e70723fe5, type: 3}
   jumpGameFloor: {fileID: 6051151169331995732, guid: 28aea1b8bbda0884a800af8ee37741bb, type: 3}
   Terminal: {fileID: 8062350932053979183, guid: fd8a1e4c34295a446bd6e5dece4066da, type: 3}
+  WordGameObject: {fileID: 4714198949300699105, guid: 52005abc8c1f1de4b96a08d1d7ad08fb, type: 3}
 --- !u!1 &1772101574
 GameObject:
   m_ObjectHideFlags: 0
