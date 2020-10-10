@@ -62,10 +62,20 @@ public class GameManager : MonoBehaviour {
 
         Color color = won ? Color.green : Color.red;
 
+        string extraText = "";
+        int guessedLetters = 0;
+        for (int i = 0; i < passwordHint.Length; i++) {
+            if (passwordHint[i] == (char)0) guessedLetters++;
+        }
+
+        if (guessedLetters > 0) {
+            extraText = "\n(and you guessed " + guessedLetters + " letters)";
+        }
+
         topText.text = won ? "You won!" : "You lost!";
         topText.color = color;
         bottomText.text = won ? "... with " + GetTimeLeft() + " seconds left" : "Good luck next time :(";
-        bottomText.text += "\nPress [ENTER] to play again.";
+        bottomText.text += "\nPress [ENTER] to play again." + extraText;
         bottomText.color = color;
     }
 
