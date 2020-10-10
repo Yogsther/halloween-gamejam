@@ -18,6 +18,7 @@ public class Terminal : Puzzle {
     }
 
     public void OnInput(string value) {
+        if (gm.gameOver) return;
         input.text = value.ToUpper();
         if (input.text.Length == 8) {
             if (input.text == gm.password) {
