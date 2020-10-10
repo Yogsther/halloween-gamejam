@@ -1812,6 +1812,18 @@ MonoBehaviour:
   inPuzzle: 0
   activePuzzle: {fileID: 0}
   puzzleRunner: {fileID: 244529206}
+  words: {fileID: 4900000, guid: a212d027c1fbfdf4885c4089bcf69121, type: 3}
+  password: 
+  passwordHint:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  passwordHintObject: {fileID: 1789720410}
 --- !u!4 &1765298659
 Transform:
   m_ObjectHideFlags: 0

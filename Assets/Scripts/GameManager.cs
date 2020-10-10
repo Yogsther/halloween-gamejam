@@ -1,17 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
     public bool inPuzzle = false;
     public Puzzle activePuzzle;
     public GameObject puzzleRunner;
-    public TextAsset words;
+    public TextAsset rawWords;
+    public string[] words;
 
+    public string password;
+    public string[] passwordHint = new string[8];
+    public Text passwordHintObject;
 
     void Start() {
-        Debug.Log(words.text);
+        words = rawWords.text.Split(' ');
     }
 
     public void Back() {
@@ -23,7 +28,17 @@ public class GameManager : MonoBehaviour {
         inPuzzle = false;
     }
 
+    void DrawHint() {
+        string hintText = "";
+        for (int i = 0; i < passwordHint.Length; i++) {
+            hintText += passwordHint[i] == null ? "_" : passwordHint[i];
+            hintText += " ";
+        }
+        passwordHintObject.text = hintText;
+    }
+
     void Update() {
+
         if (Input.GetMouseButton(0)) {
 
             RaycastHit hit;
