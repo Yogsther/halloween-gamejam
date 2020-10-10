@@ -7,10 +7,11 @@ public class GameManager : MonoBehaviour {
     public bool inPuzzle = false;
     public Puzzle activePuzzle;
     public GameObject puzzleRunner;
+    public TextAsset words;
 
 
     void Start() {
-
+        Debug.Log(words.text);
     }
 
     public void Back() {
