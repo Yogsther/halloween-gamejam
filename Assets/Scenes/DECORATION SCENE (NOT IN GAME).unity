@@ -3731,7 +3731,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9289f0cf6faa0f9439e60299ca283bf4, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.05
+  m_Volume: 0.02
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -4638,7 +4638,8 @@ MonoBehaviour:
   passwordHint: 00000000000000000000000000000000
   passwordHintObject: {fileID: 21039114}
   gameOverScreen: {fileID: 1524320147}
-  Audio: {fileID: 23688221}
+  audioPlayer: {fileID: 23688221}
+  audio: {fileID: 0}
 --- !u!4 &1765298659
 Transform:
   m_ObjectHideFlags: 0

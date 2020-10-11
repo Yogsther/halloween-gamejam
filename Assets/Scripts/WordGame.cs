@@ -72,6 +72,9 @@ public class WordGame : Puzzle {
     void Click(int index) {
         GameObject button = buttons[index];
 
+        AudioClip[] clips = { gm.audio.WordCorrect1, gm.audio.WordCorrect2, gm.audio.WordCorrect3, gm.audio.WordCorrect4 };
+        gm.audio.PlayEffect(clips[Random.Range(0, 4)]);
+
         bool correctClick = false;
         for (int i = 0; i < keys.Length; i++) {
             if (keys[i] == index) {
@@ -89,6 +92,7 @@ public class WordGame : Puzzle {
                 }
             }
         } else {
+            gm.audio.PlayEffect(gm.audio.WordIncorrect);
             button.GetComponent<Image>().color = Color.red;
             gm.GivePenalty(10);
             StartCoroutine(Clear());

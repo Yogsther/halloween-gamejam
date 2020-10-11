@@ -44,11 +44,15 @@ public class SimonSays : Puzzle {
         DimAll();
         if (numbers[at] == key) {
 
+            gm.audio.PlayEffect(gm.audio.SimonPress);
             LightUp(key, Color.green);
 
             if (at == numbers.Length - 1) {
+
+                gm.audio.PlayEffect(gm.audio.SimonCorrect);
                 LightComplete();
                 Completed();
+
             } else if (at == stage - 1) {
                 StartCoroutine(Sequence());
             } else {
@@ -56,6 +60,7 @@ public class SimonSays : Puzzle {
             }
 
         } else {
+            gm.audio.PlayEffect(gm.audio.SimonIncorrect);
             LightFail();
             Failed();
         }
@@ -99,6 +104,7 @@ public class SimonSays : Puzzle {
         for (int i = 0; i < stage; i++) {
             DimAll();
             yield return new WaitForSeconds(hard ? .1f : .25f);
+            gm.audio.PlayEffect(gm.audio.SimonFollow);
             LightUp(numbers[i], Color.blue);
             yield return new WaitForSeconds(hard ? .4f : .7f);
             DimAll();
