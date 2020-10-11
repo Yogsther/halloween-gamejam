@@ -28,6 +28,7 @@ public class WordGame : Puzzle {
         base.Setup();
 
         progress = 0;
+        rewards = 1;
 
         word = gm.words[Random.Range(0, gm.words.Length - 1)];
 

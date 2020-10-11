@@ -8,6 +8,7 @@ public class Puzzle : MonoBehaviour {
     [HideInInspector] public bool failed;
 
     public bool hard = false;
+    public int rewards = 2;
 
     public virtual void Setup() {
         failed = false;
@@ -30,9 +31,9 @@ public class Puzzle : MonoBehaviour {
     }
 
     IEnumerator CompleteDelay() {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < rewards; i++) {
             gm.GiveHintLetter();
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(.25f);
         }
         gm.Back();
     }
@@ -41,7 +42,6 @@ public class Puzzle : MonoBehaviour {
         yield return new WaitForSeconds(2);
         Unload();
         Setup();
-
     }
 
 

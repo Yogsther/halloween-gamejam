@@ -36,11 +36,18 @@ public class Audio : MonoBehaviour {
 
     public void RestartAmbient() {
         ambientSource.clip = Ambience2Min;
+        ambientSource.time = 0;
         ambientSource.Play();
     }
 
     public void PlayEffect(AudioClip clip) {
+        PlayEffect(clip, 1);
+    }
+
+    public void PlayEffect(AudioClip clip, float volume) {
+        effectSource.volume = volume;
         effectSource.clip = clip;
+        effectSource.time = 0;
         effectSource.Play();
     }
 

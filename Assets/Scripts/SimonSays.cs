@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +21,10 @@ public class SimonSays : Puzzle {
         stage = 0;
         playingSequence = false;
         at = 0;
+
+        if (hard) rewards = 4;
+        else rewards = 2;
+
         buttons = new List<GameObject>();
         for (int i = 0; i < 9; i++) buttons.Add(null);
         for (int i = 0; i < numbers.Length; i++) {
@@ -104,7 +107,7 @@ public class SimonSays : Puzzle {
         for (int i = 0; i < stage; i++) {
             DimAll();
             yield return new WaitForSeconds(hard ? .1f : .25f);
-            gm.audio.PlayEffect(gm.audio.SimonFollow);
+            gm.audio.PlayEffect(gm.audio.SimonFollow, .2f);
             LightUp(numbers[i], Color.blue);
             yield return new WaitForSeconds(hard ? .4f : .7f);
             DimAll();

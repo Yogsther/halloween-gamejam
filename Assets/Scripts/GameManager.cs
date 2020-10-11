@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using TMPro.EditorUtilities;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour {
     public GameObject puzzleRunner;
     public TextAsset rawWords;
     public string[] words;
+
+    public HDAdditionalLightData light;
 
     public Transform canvas;
 
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour {
         backButton.gameObject.SetActive(false);
         gameOver = false;
         gameOverScreen.gameObject.SetActive(false);
+        DrawHint();
     }
 
     public void EndGame() {
@@ -126,6 +129,8 @@ public class GameManager : MonoBehaviour {
         time -= amount;
         SetTimerColor(Color.red);
         StartCoroutine(ResetTimeColor());
+
+        audio.ambientSource.time += amount;
     }
 
     void SetTimerColor(Color color) {
@@ -147,6 +152,8 @@ public class GameManager : MonoBehaviour {
             time -= Time.deltaTime;
             timer.text = GetTimeLeft();
 
+            light.intensity = (time / 120) * 14000;
+
             if (time <= 0) {
                 EndGame();
             }
@@ -154,7 +161,6 @@ public class GameManager : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Return)) {
             if (gameOver) StartGame();
-            GiveHintLetter();
         }
 
         if (Input.GetMouseButton(0) && !gameOver) {

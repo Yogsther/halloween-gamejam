@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour {
@@ -11,6 +10,9 @@ public class CameraMovement : MonoBehaviour {
     public float offsetX = 0;
     float vel;
 
+    public Transform monkeySpawns;
+    public GameObject monkeyModel;
+
     // Start is called before the first frame update
     void Start() {
 
@@ -18,6 +20,22 @@ public class CameraMovement : MonoBehaviour {
 
     public void ChangeCameraLook(int way) {
         desiredDirection += way * 90;
+
+        if (Random.Range(0, 3) == 0) {
+            Debug.Log("Spawning monkey");
+            List<Transform> nonVisibleSpawns = new List<Transform>();
+            foreach (Transform spawn in monkeySpawns) {
+
+                if (spawn.childCount == 0) {
+                    nonVisibleSpawns.Add(spawn);
+                }
+            }
+            if (nonVisibleSpawns.Count > 0) {
+                Transform parent = nonVisibleSpawns[Random.Range(0, nonVisibleSpawns.Count)];
+                Instantiate(monkeyModel, parent.position, parent.rotation, parent);
+                Debug.Log("Spawned monkey");
+            }
+        }
     }
 
 
