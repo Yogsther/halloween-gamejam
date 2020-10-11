@@ -28,15 +28,20 @@ public class GameManager : MonoBehaviour {
     public Text passwordHintObject;
 
     public Transform gameOverScreen;
+    public GameObject audioPlayer;
+    public Audio audio;
 
     void Start() {
         gameOver = true;
+        audio = audioPlayer.GetComponent<Audio>();
         words = rawWords.text.Split(' ');
         StartGame();
     }
 
     public void StartGame() {
         if (!gameOver) return;
+
+        audio.RestartAmbient();
         password = words[Random.Range(0, words.Length - 1)];
         time = 120;
         passwordHint = new char[8];
