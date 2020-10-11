@@ -44,7 +44,7 @@ public class WordGame : Puzzle {
             button.GetComponent<RectTransform>().anchoredPosition = new Vector2(coords.x * 40 - 141, coords.y * -40 + 140);
         }
 
-        bool horizontalWord = Random.Range(0, 1) == 0;
+        bool horizontalWord = Random.Range(0, 2) == 0;
         int start = Random.Range(0, 7);
 
         int x = horizontalWord ? 0 : start;
